@@ -1,0 +1,1 @@
+Original kata description => https://codingdojo.org/kata/BankOCR/
