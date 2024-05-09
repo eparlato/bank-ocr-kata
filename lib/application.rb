@@ -1,28 +1,21 @@
 # frozen_string_literal: true
 
 require "entry"
+require "input_file"
 class Application
   def run_with_file(file_path)
     output = ""
 
-    File.open(file_path) do |file|
-      entry_content = []
-      index = 0
+    input_file = InputFile.new("input/input_file.txt")
+    input_file.open
 
-      file.each_line do |line|
-        entry_content << line.chomp
-
-        if index == 3
-          entry = Entry.new(entry_content)
-          output += "#{entry.account_number}\n"
-
-          index = 0
-          entry_content = []
-        else
-          index += 1
-        end
-      end
+    until input_file.eof?
+      entry_content = input_file.next_entry_content
+      entry = Entry.new(entry_content)
+      output += "#{entry.account_number}\n"
     end
+
+    input_file.close
 
     output
   end
