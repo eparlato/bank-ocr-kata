@@ -13,5 +13,4 @@ RSpec.describe Application do
       expect(Application.new.run_with_file("input/input_file.txt")).to equal(expected_output)
     end
   end
-
 end
