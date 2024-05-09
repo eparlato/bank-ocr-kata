@@ -28,5 +28,18 @@ RSpec.describe "Entry" do
         expect(entry.account_number).to eq("000000001")
       end
     end
+
+    context "when initialized with 123456789 content" do
+      entry = Entry.new([
+                          "    _  _     _  _  _  _  _ ",
+                          "  | _| _||_||_ |_   ||_||_|",
+                          "  ||_  _|  | _||_|  ||_| _|",
+                          ""
+                        ])
+
+      it "returns 123456789" do
+        expect(entry.account_number).to eq("123456789")
+      end
+    end
   end
 end
