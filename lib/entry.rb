@@ -1,57 +1,57 @@
 # frozen_string_literal: true
 
 class Entry
-  NUMBERS_AS_SYMBOLS = {
-    "0" => [
+  SYMBOLS_TO_NUMBERS = {
+    [
       " _ ",
       "| |",
       "|_|"
-    ],
-    "1" => [
+    ] => "0",
+    [
       "   ",
       "  |",
       "  |"
-    ],
-    "2" => [
+    ] => "1",
+    [
       " _ ",
       " _|",
       "|_ "
-    ],
-    "3" => [
+    ] => "2",
+    [
       " _ ",
       " _|",
       " _|"
-    ],
-    "4" => [
+    ] => "3",
+    [
       "   ",
       "|_|",
       "  |"
-    ],
-    "5" => [
+    ] => "4",
+    [
       " _ ",
       "|_ ",
       " _|"
-    ],
-    "6" => [
+    ] => "5",
+    [
       " _ ",
       "|_ ",
       "|_|"
-    ],
-    "7" => [
+    ] => "6",
+    [
       " _ ",
       "  |",
       "  |"
-    ],
-    "8" => [
+    ] => "7",
+    [
       " _ ",
       "|_|",
       "|_|"
-    ],
-    "9" => [
+    ] => "8",
+    [
       " _ ",
       "|_|",
       " _|"
-    ]
+    ] => "9"
   }
 
   def initialize(content)
@@ -60,22 +60,21 @@ class Entry
 
   def account_number
     content_with_symbols = @content[0..2]
-
-    start = 0
-    offset = 2
     account_number = ""
 
-    9.times do
-      current_number = content_with_symbols.map { |line| line[start..offset] }
+    current_number_start_position = 0
+    current_number_end_position = 2
 
-      NUMBERS_AS_SYMBOLS.each_pair do |key, value|
-        if current_number == value
-          account_number += key
-        end
-      end
+    tot_numbers_on_single_line = 9
+    single_number_width_on_single_line = 3
+ 
+    tot_numbers_on_single_line.times do
+      current_number = content_with_symbols.map { |line| line[current_number_start_position..current_number_end_position] }
 
-      start += 3
-      offset += 3
+      account_number += SYMBOLS_TO_NUMBERS[current_number]
+
+      current_number_start_position += single_number_width_on_single_line
+      current_number_end_position += single_number_width_on_single_line
     end
 
     account_number
